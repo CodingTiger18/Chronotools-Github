@@ -1,0 +1,103 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schema/server-card.json",
+  "name": "chronotools",
+  "version": "1.0.0",
+  "title": "ChronoTools MCP Server",
+  "description": "Model Context Protocol server for ChronoTools. Exposes world time conversion, stock market trading hours, ISO 8601 week numbers, and Unix epoch utilities to AI agents.",
+  "url": "https://chronotools.online/.well-known/mcp/server-card.json",
+  "endpoint": "https://chronotools.online/.well-known/mcp/server-card.json",
+  "homepage": "https://chronotools.online",
+  "documentation": "https://chronotools.online/llms.txt",
+  "publisher": {
+    "name": "ChronoTools Online",
+    "email": "support@chronotools.online",
+    "url": "https://chronotools.online"
+  },
+  "capabilities": {
+    "tools": {
+      "listChanged": false
+    },
+    "resources": {
+      "subscribe": false,
+      "listChanged": false
+    },
+    "prompts": {
+      "listChanged": false
+    },
+    "logging": {}
+  },
+  "tools": [
+    {
+      "name": "convert_time",
+      "description": "Convert a specific timestamp or ISO date string between any two IANA timezones with Daylight Saving Time calculation.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "datetime": {
+            "type": "string",
+            "description": "ISO 8601 date string or timestamp"
+          },
+          "sourceTimezone": {
+            "type": "string",
+            "description": "Source IANA timezone (e.g. America/New_York, UTC, Asia/Kolkata)"
+          },
+          "targetTimezone": {
+            "type": "string",
+            "description": "Target IANA timezone (e.g. Europe/London, Asia/Tokyo)"
+          }
+        },
+        "required": ["sourceTimezone", "targetTimezone"]
+      }
+    },
+    {
+      "name": "get_market_hours",
+      "description": "Get current trading status and open/close countdown for major stock exchanges (NYSE, NASDAQ, LSE, TSE, HKEX, NSE).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "exchange": {
+            "type": "string",
+            "enum": ["NYSE", "NASDAQ", "LSE", "TSE", "HKEX", "NSE"],
+            "description": "Exchange identifier"
+          }
+        }
+      }
+    },
+    {
+      "name": "get_iso_week",
+      "description": "Calculate ISO 8601 week number, start date, and end date for any calendar year or date.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "ISO 8601 date (YYYY-MM-DD)"
+          },
+          "startDay": {
+            "type": "string",
+            "enum": ["monday", "sunday", "saturday"],
+            "description": "First day of the week convention"
+          }
+        }
+      }
+    },
+    {
+      "name": "convert_unix_epoch",
+      "description": "Convert between Unix timestamps (seconds or milliseconds) and formatted UTC/local date strings.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "number",
+            "description": "Unix timestamp in seconds or milliseconds"
+          },
+          "targetTimezone": {
+            "type": "string",
+            "description": "Target timezone for output formatting"
+          }
+        },
+        "required": ["timestamp"]
+      }
+    }
+  ]
+}

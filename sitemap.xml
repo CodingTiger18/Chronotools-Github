@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://chronotools.online/sitemap-core.xml</loc>
+    <lastmod>2026-11-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://chronotools.online/sitemap-tier1-batch1.xml</loc>
+    <lastmod>2026-11-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://chronotools.online/sitemap-tier1-batch2.xml</loc>
+    <lastmod>2026-11-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://chronotools.online/sitemap-tier2.xml</loc>
+    <lastmod>2026-11-16</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://chronotools.online/sitemap-tier3-5.xml</loc>
+    <lastmod>2026-11-16</lastmod>
+  </sitemap>
+</sitemapindex>

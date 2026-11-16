@@ -1,0 +1,9 @@
+# Content Signals (W3C / AI Crawler Directives)
+Content-Signal: search=yes, ai-train=no
+
+User-agent: *
+Allow: /
+Content-Signal: search=yes, ai-train=no
+
+# Sitemap Declaration
+Sitemap: https://chronotools.online/sitemap.xml

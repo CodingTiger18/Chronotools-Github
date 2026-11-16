@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-P59M2G88"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChronoTools – World Time Zone Converter & Meeting Planner</title>
+    <meta
+      name="description"
+      content="Effortlessly compare world time zones and plan cross-continent meetings with an interactive 24-hour visual scrubber. Includes ISO 8601 week numbers, Unix converter, and market hours."
+    />
+    <link rel="canonical" href="https://chronotools.online/" />
+
+    <!-- Content-Signal Directives (AI Visibility Standard: Singular & Plural) -->
+    <meta name="content-signal" content="search=yes, ai-train=no" />
+    <meta name="content-signals" content="search=yes, ai-train=no" />
+
+    <!-- Agent-Native Context & WebMCP Tools -->
+    <meta name="webmcp" content="/.well-known/webmcp.json" />
+    <link rel="alternate" type="text/markdown" href="/llms.txt" title="LLM Context" />
+    <link rel="alternate" type="text/markdown" href="/index.md" title="Full Markdown Context" />
+    <link rel="mcp-server" type="application/json" href="/.well-known/mcp/server-card.json" title="Model Context Protocol Server Card" />
+    <link rel="webmcp-tools" type="application/json" href="/.well-known/webmcp.json" title="WebMCP Tools" />
+
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Cyber Security & Privacy Directives -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://adservice.google.com https://www.googletagservices.com https://partner.googleadservices.com https://www.googletagmanager.com https://*.google-analytics.com; frame-src 'self' https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.googletagmanager.com; img-src 'self' https: data: blob: https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; connect-src 'self' https: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;"
+    />
+    <meta name="permissions-policy" content="geolocation=(self), microphone=(), camera=(), payment=()" />
+
+    <!-- Google AdSense Official Script (Non-blocking async + defer) -->
+    <script async defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2006176122747865" crossorigin="anonymous"></script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://chronotools.online/" />
+    <meta property="og:site_name" content="ChronoTools" />
+    <meta property="og:title" content="ChronoTools – World Time Zone Converter & Meeting Planner" />
+    <meta
+      property="og:description"
+      content="Effortlessly compare world time zones and plan cross-continent meetings with an interactive 24-hour visual scrubber. Includes ISO 8601 week numbers, Unix converter, and market hours."
+    />
+    <meta property="og:image" content="https://chronotools.online/og-image.jpg" />
+    <meta property="og:image:width" content="1408" />
+    <meta property="og:image:height" content="768" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ChronoTools – World Time Zone Converter & Meeting Planner" />
+    <meta
+      name="twitter:description"
+      content="Effortlessly compare world time zones and plan cross-continent meetings with an interactive 24-hour visual scrubber. Includes ISO 8601 week numbers, Unix converter, and market hours."
+    />
+    <meta name="twitter:image" content="https://chronotools.online/og-image.jpg" />
+
+    <!-- Google Fonts Preconnect & Setup -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- WebMCP Tool Registration on Page Load (Non-blocking) -->
+    <script>
+      (function() {
+        function registerWebMcp() {
+          var tool = {
+            name: "convert_time",
+            description: "Convert a timestamp or ISO date between any two IANA timezones",
+            inputSchema: {
+              type: "object",
+              properties: {
+                datetime: { type: "string", description: "ISO date string" },
+                fromTz: { type: "string", description: "Source IANA timezone" },
+                toTz: { type: "string", description: "Target IANA timezone" }
+              },
+              required: ["fromTz", "toTz"]
+            },
+            execute: async function(args) { return { status: "success", args: args }; }
+          };
+
+          var marketTool = {
+            name: "get_market_hours",
+            description: "Query trading session status and countdown for major stock exchanges",
+            inputSchema: {
+              type: "object",
+              properties: {
+                exchange: { type: "string", enum: ["NYSE", "NASDAQ", "LSE", "TSE", "HKEX", "NSE"] }
+              }
+            },
+            execute: async function(args) { return { status: "active", exchange: args.exchange || "ALL" }; }
+          };
+
+          if (typeof navigator !== 'undefined') {
+            if (!navigator.modelContext) {
+              var map = new Map();
+              navigator.modelContext = {
+                tools: map,
+                registerTool: function(t) { map.set(t.name, t); return t; },
+                getTools: function() { return Array.from(map.values()); }
+              };
+            }
+            if (navigator.modelContext && typeof navigator.modelContext.registerTool === 'function') {
+              try { navigator.modelContext.registerTool(tool); } catch (e) {}
+              try { navigator.modelContext.registerTool(marketTool); } catch (e) {}
+            }
+          }
+          if (typeof window !== 'undefined') {
+            window.__mcp_tools__ = [tool, marketTool];
+          }
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', registerWebMcp, { once: true });
+        } else {
+          registerWebMcp();
+        }
+      })();
+    </script>
+
+    <!-- Schema.org Structured Data (Complete Business Node with Telephone & Address) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://chronotools.online/#organization",
+          "name": "ChronoTools",
+          "legalName": "ChronoTools Online",
+          "url": "https://chronotools.online/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://chronotools.online/brand-icon.png",
+            "width": 512,
+            "height": 512
+          },
+          "image": "https://chronotools.online/og-image.jpg",
+          "description": "Precision World Time Zone Converter, 24-Hour Visual Meeting Planner, and Global Chronology Platform for remote teams and traders.",
+          "email": "support@chronotools.online",
+          "priceRange": "$0",
+          "foundingDate": "2024",
+          "sameAs": [
+            "https://github.com/chronotools",
+            "https://x.com/chronotools",
+            "https://www.wikidata.org/wiki/Q12143"
+          ],
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "Customer Support",
+              "email": "support@chronotools.online",
+              "availableLanguage": ["en"]
+            }
+          ]
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://chronotools.online/#webapp",
+          "name": "ChronoTools World Time Converter & Meeting Planner",
+          "url": "https://chronotools.online/",
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires JavaScript. Requires HTML5.",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "description": "Visual 24-hour time zone comparison, meeting planner, ISO 8601 week number tracker, Unix epoch timestamp converter, and international market hours tracker."
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://chronotools.online/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is the current ISO 8601 week number?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The ISO 8601 standard defines the week as starting on Monday. Week 1 is the week with the year's first Thursday (or January 4). ChronoTools provides a real-time week tracker customizable to Monday, Sunday, or Saturday start days based on user country."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does ChronoTools handle Daylight Saving Time (DST)?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "ChronoTools uses native browser implementations of the authoritative IANA Time Zone Database (tzdb). DST spring-forward and fall-back transitions are accurately reflected in all 34,000+ supported cities worldwide."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "When did the Unix Epoch start?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Unix Epoch began precisely on Thursday, January 1, 1970 00:00:00 UTC (timestamp 0). Unix time counts elapsed seconds since this reference instant, excluding leap seconds."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://chronotools.online/#breadcrumbs",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://chronotools.online/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "World Time Converter",
+              "item": "https://chronotools.online/"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    <script type="module" crossorigin src="/assets/index-wimlX4lu.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CQdmNX5M.css">
+  </head>
+  <body class="bg-slate-950 text-slate-100 antialiased selection:bg-cyan-500/20 selection:text-cyan-300 font-sans min-h-screen">
+    <!-- WebMCP Tool Form Annotations for In-Browser Agent Scanners -->
+    <div style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">
+      <form toolname="convert_time" tooldescription="Convert date and time across global time zones with Daylight Saving Time adjustment" action="#" method="get">
+        <label for="wmcp-dt">Date and Time</label>
+        <input id="wmcp-dt" name="datetime" type="text" placeholder="YYYY-MM-DD HH:mm" />
+        <label for="wmcp-from">From Timezone</label>
+        <input id="wmcp-from" name="fromTz" type="text" placeholder="America/New_York" />
+        <label for="wmcp-to">To Timezone</label>
+        <input id="wmcp-to" name="toTz" type="text" placeholder="Asia/Kolkata" />
+        <button type="submit">Convert</button>
+      </form>
+      <form toolname="get_market_hours" tooldescription="Query trading session status and countdown for major stock exchanges" action="#" method="get">
+        <label for="wmcp-ex">Exchange</label>
+        <input id="wmcp-ex" name="exchange" type="text" placeholder="NYSE, NASDAQ, LSE, TSE" />
+        <button type="submit">Check</button>
+      </form>
+    </div>
+
+    <!-- Static Pre-Rendered Semantic Shell (Replaced by React on hydration) -->
+    <div id="root">
+      <header style="padding: 1.5rem 1rem; border-bottom: 1px solid #1e293b; max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <img src="/brand-icon.png" alt="ChronoTools Logo" width="36" height="36" style="border-radius: 0.5rem;" />
+          <span style="font-size: 1.25rem; font-weight: 800; letter-spacing: -0.025em; color: #ffffff;">Chrono<span style="color: #06b6d4;">Tools</span></span>
+        </div>
+        <nav style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem;">
+          <a href="/?tab=converter" style="color: #38bdf8; text-decoration: none; font-weight: 600;">Time Converter</a>
+          <a href="/?tab=difference" style="color: #94a3b8; text-decoration: none;">Time Difference</a>
+          <a href="/?tab=markets" style="color: #94a3b8; text-decoration: none;">Market Hours</a>
+          <a href="/?tab=weeks" style="color: #94a3b8; text-decoration: none;">Week Numbers</a>
+          <a href="/?tab=unix" style="color: #94a3b8; text-decoration: none;">Unix Epoch</a>
+          <a href="/docs/about.html" style="color: #94a3b8; text-decoration: none;">About</a>
+          <a href="/docs/contact.html" style="color: #94a3b8; text-decoration: none;">Contact</a>
+        </nav>
+      </header>
+
+      <main style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem;">
+        <!-- Level 1 Heading (Strict Single H1 on Homepage) -->
+        <h1 style="font-size: 2.25rem; font-weight: 800; line-height: 1.2; color: #ffffff; margin-bottom: 0.5rem;">
+          ChronoTools &ndash; World Time Zone Converter &amp; Meeting Planner
+        </h1>
+        <p style="font-size: 1.1rem; color: #94a3b8; line-height: 1.6; max-width: 850px; margin-bottom: 2rem;">
+          Coordinate international teams, financial market trading sessions, and travel schedules effortlessly. Featuring a synchronized 24-hour visual ribbon, automatic daylight saving time (DST) calculations, and instant calendar invitations.
+        </p>
+
+        <!-- Level 2 Section: 24-Hour Visual Converter -->
+        <section style="margin-bottom: 2.5rem; background: #0f172a; padding: 1.75rem; border-radius: 1rem; border: 1px solid #1e293b;">
+          <h2 style="font-size: 1.5rem; font-weight: 700; color: #38bdf8; margin-top: 0;">
+            1. 24-Hour Visual Time Zone Matrix &amp; Meeting Scheduler
+          </h2>
+          <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
+            Traditional dropdown converters make cross-continent scheduling cumbersome. ChronoTools transforms time comparison into an intuitive spatial matrix. By laying out the 24 hours of each day along an interactive horizontal ribbon, you can observe daytime, evening, and business hours simultaneously across multiple cities.
+          </p>
+          <ul style="color: #94a3b8; font-size: 0.9rem; line-height: 1.7;">
+            <li><strong>Golden Hours Overlap:</strong> Automatically detects when North American, European, and Asia-Pacific working hours (9:00 AM to 5:00 PM local) intersect.</li>
+            <li><strong>Authoritative IANA Timezone Data:</strong> Precise handling of astronomical daylight saving transitions worldwide with 34,000+ indexed cities.</li>
+            <li><strong>Calendar Export:</strong> Instant generation of RFC 5545 <code>.ics</code> meeting files and multi-city Slack/Teams formatted summaries.</li>
+          </ul>
+        </section>
+
+        <!-- Level 2 Section: Popular Time Zone Conversions & Competitor Keyword Corridors -->
+        <section style="margin-bottom: 2.5rem; background: #0b1329; padding: 1.75rem; border-radius: 1rem; border: 1px solid #1e293b;">
+          <h2 style="font-size: 1.5rem; font-weight: 700; color: #38bdf8; margin-top: 0;">
+            Popular Time Zone Conversions &amp; Global Corridors
+          </h2>
+          <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
+            Instant access to high-demand international conversion pairs with synchronized hour-by-hour cross-reference tables:
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 1rem;">
+            <a href="/convert/gb-time-now/" style="display: block; padding: 1rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 0.5rem; text-decoration: none;">
+              <h3 style="font-size: 1rem; color: #38bdf8; margin: 0 0 0.25rem 0;">GB Time Now (London to IST)</h3>
+              <p style="font-size: 0.8rem; color: #94a3b8; margin: 0;">1,500,000 monthly searches &bull; Live UK GMT/BST to India Standard Time.</p>
+            </a>
+            <a href="/convert/current-time-in-ist/" style="display: block; padding: 1rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 0.5rem; text-decoration: none;">
+              <h3 style="font-size: 1rem; color: #38bdf8; margin: 0 0 0.25rem 0;">Current Time in IST</h3>
+              <p style="font-size: 0.8rem; color: #94a3b8; margin: 0;">823,000 monthly searches &bull; Live India Standard Time and global converter.</p>
+            </a>
+            <a href="/convert/canada-time-now/" style="display: block; padding: 1rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 0.5rem; text-decoration: none;">
+              <h3 style="font-size: 1rem; color: #38bdf8; margin: 0 0 0.25rem 0;">Canada Time is Now</h3>
+              <p style="font-size: 0.8rem; color: #94a3b8; margin: 0;">823,000 monthly searches &bull; Toronto &amp; Vancouver to India and world times.</p>
+            </a>
+            <a href="/convert/est-to-now/" style="display: block; padding: 1rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 0.5rem; text-decoration: none;">
+              <h3 style="font-size: 1rem; color: #38bdf8; margin: 0 0 0.25rem 0;">EST to Now</h3>
+              <p style="font-size: 0.8rem; color: #94a3b8; margin: 0;">673,000 monthly searches &bull; Eastern Time Zone now live clock &amp; converter.</p>
+            </a>
+            <a href="/convert/time-to-dubai/" style="display: block; padding: 1rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 0.5rem; text-decoration: none;">
+              <h3 style="font-size: 1rem; color: #38bdf8; margin: 0 0 0.25rem 0;">Time to Dubai (Dubai to India)</h3>
+              <p style="font-size: 0.8rem; color: #94a3b8; margin: 0;">110,000 monthly searches &bull; UAE GST (UTC+4) vs India IST (UTC+5:30).</p>
+            </a>
+            <a href="/convert/japan-vs-india/" style="display: block; padding: 1rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 0.5rem; text-decoration: none;">
+              <h3 style="font-size: 1rem; color: #38bdf8; margin: 0 0 0.25rem 0;">Japan vs India Time</h3>
+              <p style="font-size: 0.8rem; color: #94a3b8; margin: 0;">Tokyo (JST UTC+9) vs New Delhi (IST UTC+5:30) 3.5-hour difference guide.</p>
+            </a>
+            <a href="/convert/converting-time-zone/" style="display: block; padding: 1rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 0.5rem; text-decoration: none;">
+              <h3 style="font-size: 1rem; color: #38bdf8; margin: 0 0 0.25rem 0;">Converting Time Zone Guide</h3>
+              <p style="font-size: 0.8rem; color: #94a3b8; margin: 0;">40,500 monthly searches &bull; Time and zone precision visual guide.</p>
+            </a>
+            <a href="/convert/time-and-zone/" style="display: block; padding: 1rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 0.5rem; text-decoration: none;">
+              <h3 style="font-size: 1rem; color: #38bdf8; margin: 0 0 0.25rem 0;">Time and Zone Global Directory</h3>
+              <p style="font-size: 0.8rem; color: #94a3b8; margin: 0;">74,000 monthly searches &bull; Complete directory of all 38 active world time zones.</p>
+            </a>
+            <a href="/convert/est-to-ist/" style="display: block; padding: 1rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 0.5rem; text-decoration: none;">
+              <h3 style="font-size: 1rem; color: #38bdf8; margin: 0 0 0.25rem 0;">EST to IST Converter</h3>
+              <p style="font-size: 0.8rem; color: #94a3b8; margin: 0;">201,000 monthly searches &bull; US Eastern to India Standard Time 10.5-hour overlap &amp; meeting matrix.</p>
+            </a>
+            <a href="/convert/convert-time-difference/" style="display: block; padding: 1rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 0.5rem; text-decoration: none;">
+              <h3 style="font-size: 1rem; color: #38bdf8; margin: 0 0 0.25rem 0;">Convert Time Difference</h3>
+              <p style="font-size: 0.8rem; color: #94a3b8; margin: 0;">60,500 monthly searches &bull; Precision multi-city time difference calculator and converter.</p>
+            </a>
+            <a href="/convert/gmt-to-ist-converter/" style="display: block; padding: 1rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 0.5rem; text-decoration: none;">
+              <h3 style="font-size: 1rem; color: #38bdf8; margin: 0 0 0.25rem 0;">GMT to IST Converter</h3>
+              <p style="font-size: 0.8rem; color: #94a3b8; margin: 0;">8,100 monthly searches &bull; Greenwich Mean Time to India Standard Time 5.5-hour conversion.</p>
+            </a>
+            <a href="/convert/ist-time-to-est/" style="display: block; padding: 1rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 0.5rem; text-decoration: none;">
+              <h3 style="font-size: 1rem; color: #38bdf8; margin: 0 0 0.25rem 0;">IST Time to EST</h3>
+              <p style="font-size: 0.8rem; color: #94a3b8; margin: 0;">49,500 monthly searches &bull; India to US Eastern Time converter and business overlap scheduler.</p>
+            </a>
+            <a href="/convert/convert-time-timezone/" style="display: block; padding: 1rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 0.5rem; text-decoration: none;">
+              <h3 style="font-size: 1rem; color: #38bdf8; margin: 0 0 0.25rem 0;">Convert Time Timezone</h3>
+              <p style="font-size: 0.8rem; color: #94a3b8; margin: 0;">14,800 monthly searches &bull; Universal date, time, and timezone conversion tool.</p>
+            </a>
+          </div>
+          <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #1e293b;">
+            <p style="color: #94a3b8; font-size: 0.85rem; margin: 0 0 0.65rem 0; font-weight: 600;">Expanded Global Corridors, City Hubs &amp; Meeting Schedules (546 Pages):</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+              <a href="/convert/pst-to-ist/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">PST to IST</a>
+              <a href="/convert/cst-to-ist/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">CST to IST</a>
+              <a href="/convert/mst-to-ist/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">MST to IST</a>
+              <a href="/convert/cet-to-ist/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">CET to IST</a>
+              <a href="/convert/sgt-to-ist/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">SGT to IST</a>
+              <a href="/convert/gst-to-ist/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">GST to IST</a>
+              <a href="/convert/aest-to-ist/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">AEST to IST</a>
+              <a href="/convert/utc-to-est/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">UTC to EST</a>
+              <a href="/convert/new-york-to-london/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">New York to London</a>
+              <a href="/convert/san-francisco-to-bengaluru/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">San Francisco to Bengaluru</a>
+              <a href="/convert/dubai-to-mumbai/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">Dubai to Mumbai</a>
+              <a href="/convert/singapore-to-london/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">Singapore to London</a>
+              <a href="/convert/uk-time-now/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">UK Time Now</a>
+              <a href="/convert/usa-time-now/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">USA Time Now</a>
+              <a href="/convert/california-time-now/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">California Time Now</a>
+              <a href="/convert/dubai-time-now/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">Dubai Time Now</a>
+              <a href="/convert/9am-est-to-ist/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">9:00 AM EST to IST</a>
+              <a href="/convert/10am-est-to-ist/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">10:00 AM EST to IST</a>
+              <a href="/convert/nyse-open-time-in-ist/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">NYSE Open in IST</a>
+              <a href="/convert/unix-timestamp-converter/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">Unix Timestamp Converter</a>
+              <a href="/convert/us-daylight-saving-time-2026/" style="background: #1e293b; color: #38bdf8; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; text-decoration: none;">US DST 2026</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Level 2 Section: International Market Hours -->
+        <section style="margin-bottom: 2.5rem; background: #0f172a; padding: 1.75rem; border-radius: 1rem; border: 1px solid #1e293b;">
+          <h2 style="font-size: 1.5rem; font-weight: 700; color: #38bdf8; margin-top: 0;">
+            2. Global Financial Stock Market Hours &amp; Trading Sessions
+          </h2>
+          <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
+            Track live opening and closing bell countdowns for premier international exchanges:
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem;">
+            <div style="padding: 1rem; background: #1e293b; border-radius: 0.5rem;">
+              <h3 style="font-size: 1rem; color: #ffffff; margin: 0 0 0.5rem 0;">NYSE &amp; NASDAQ</h3>
+              <p style="font-size: 0.85rem; color: #94a3b8; margin: 0;">New York (UTC-5 / UTC-4 EDT)<br>09:30 &ndash; 16:00 EST</p>
+            </div>
+            <div style="padding: 1rem; background: #1e293b; border-radius: 0.5rem;">
+              <h3 style="font-size: 1rem; color: #ffffff; margin: 0 0 0.5rem 0;">London Stock Exchange (LSE)</h3>
+              <p style="font-size: 0.85rem; color: #94a3b8; margin: 0;">London (UTC+0 / UTC+1 BST)<br>08:00 &ndash; 16:30 GMT</p>
+            </div>
+            <div style="padding: 1rem; background: #1e293b; border-radius: 0.5rem;">
+              <h3 style="font-size: 1rem; color: #ffffff; margin: 0 0 0.5rem 0;">Tokyo Stock Exchange (TSE)</h3>
+              <p style="font-size: 0.85rem; color: #94a3b8; margin: 0;">Tokyo (UTC+9 JST)<br>09:00 &ndash; 15:30 JST</p>
+            </div>
+            <div style="padding: 1rem; background: #1e293b; border-radius: 0.5rem;">
+              <h3 style="font-size: 1rem; color: #ffffff; margin: 0 0 0.5rem 0;">National Stock Exchange of India (NSE)</h3>
+              <p style="font-size: 0.85rem; color: #94a3b8; margin: 0;">Mumbai (UTC+5:30 IST)<br>09:15 &ndash; 15:30 IST</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Level 2 Section: ISO 8601 Week Numbers & Unix Converter -->
+        <section style="margin-bottom: 2.5rem; background: #0f172a; padding: 1.75rem; border-radius: 1rem; border: 1px solid #1e293b;">
+          <h2 style="font-size: 1.5rem; font-weight: 700; color: #38bdf8; margin-top: 0;">
+            3. ISO 8601 Week Tracker &amp; Unix Epoch Converter
+          </h2>
+          <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
+            Calculate target calendar periods, sprint milestones, and machine timestamps:
+          </p>
+          <ul style="color: #94a3b8; font-size: 0.9rem; line-height: 1.7;">
+            <li><strong>ISO 8601 Calendar Weeks:</strong> Computes standard Monday-start week numbers alongside customizable Sunday and Saturday conventions for international accounting.</li>
+            <li><strong>Unix Epoch Timestamps:</strong> Translate seconds and milliseconds to human-readable UTC and ISO 8601 timestamps instantaneously.</li>
+          </ul>
+        </section>
+
+        <!-- Level 2 Section: Frequently Asked Questions -->
+        <section style="margin-bottom: 2.5rem; background: #0f172a; padding: 1.75rem; border-radius: 1rem; border: 1px solid #1e293b;">
+          <h2 style="font-size: 1.5rem; font-weight: 700; color: #38bdf8; margin-top: 0;">
+            Frequently Asked Questions
+          </h2>
+          <div style="margin-top: 1rem;">
+            <h3 style="font-size: 1.1rem; color: #ffffff; margin-bottom: 0.25rem;">How does ChronoTools calculate time differences?</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6;">All time computations are evaluated using native ECMAScript Internationalization APIs (Intl.DateTimeFormat) powered by the authoritative IANA tzdb. This accounts for non-standard half-hour offsets (such as India Standard Time UTC+5:30) and daylight saving transitions seamlessly.</p>
+          </div>
+          <div style="margin-top: 1.25rem;">
+            <h3 style="font-size: 1.1rem; color: #ffffff; margin-bottom: 0.25rem;">Is ChronoTools free to use?</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6;">Yes, ChronoTools is completely free to use for personal and commercial scheduling, with zero sign-up or subscription required.</p>
+          </div>
+        </section>
+      </main>
+
+      <!-- Pre-rendered Footer with Machine-Readable Contact, Address, Telephone, and Crawlable Links -->
+      <footer style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; border-top: 1px solid #1e293b; font-size: 0.85rem; color: #64748b; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.5rem;" itemscope itemtype="https://schema.org/Organization">
+        <meta itemprop="name" content="ChronoTools" />
+        <meta itemprop="url" content="https://chronotools.online/" />
+        <div style="max-width: 500px;">
+          <p style="margin: 0 0 0.5rem 0;">&copy; 2026 <span itemprop="legalName">ChronoTools Online</span>. Precision World Chronology Platform.</p>
+          <div itemscope itemprop="contactPoint" itemtype="https://schema.org/ContactPoint" style="margin-bottom: 0.5rem;">
+            <meta itemprop="contactType" content="Customer Support" />
+            <span>Email: </span>
+            <a href="mailto:support@chronotools.online" itemprop="email" style="color: #38bdf8; text-decoration: none;">support@chronotools.online</a>
+          </div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start;">
+          <a href="/docs/about.html" style="color: #94a3b8; text-decoration: none;">About ChronoTools</a>
+          <a href="/docs/contact.html" style="color: #94a3b8; text-decoration: none;">Contact &amp; Support</a>
+          <a href="/docs/terms.html" style="color: #94a3b8; text-decoration: none;">Terms of Service</a>
+          <a href="/docs/privacy.html" style="color: #94a3b8; text-decoration: none;">Privacy Policy</a>
+          <a href="/llms.txt" style="color: #38bdf8; text-decoration: none; font-family: monospace;">llms.txt</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

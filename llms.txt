@@ -1,0 +1,41 @@
+# ChronoTools
+
+> ChronoTools is a precision world time zone converter, 24-hour visual meeting planner, and international chronology suite built for remote teams, financial traders, and travelers.
+
+## Key Pages
+
+- [Home](https://chronotools.online/): Precision 24-hour synchronized time zone converter and multi-city meeting planner.
+- [About](https://chronotools.online/docs/about.html): Company overview, calculation methodology, and data sources.
+- [Contact](https://chronotools.online/docs/contact.html): Technical support desk, inquiries, and vulnerability reporting.
+- [Privacy Policy](https://chronotools.online/docs/privacy.html): GDPR, CCPA, and data handling transparency standards.
+- [Terms of Service](https://chronotools.online/docs/terms.html): Permissible use terms and conditions.
+
+## Tools & Features
+
+- [ISO 8601 Week Numbers](https://chronotools.online/weeks/): Calendar week number tracker with customizable start days.
+- [International Market Hours](https://chronotools.online/market-hours/): Live stock exchange trading bells and countdowns.
+- [Time Difference Engine](https://chronotools.online/difference/): Visual direction and hour/minute differential calculator.
+- [Unix Epoch Converter](https://chronotools.online/unix/): Bi-directional millisecond and second timestamp translator.
+- [Team Scheduler Matrix](https://chronotools.online/teams/): Distributed team work hour alignment.
+- [Jet Lag Mitigation](https://chronotools.online/jetlag/): Circadian rhythm travel recovery timelines.
+
+## Popular Conversions
+
+- [GB Time Now](https://chronotools.online/convert/gb-time-now/): Live UK London time (GMT/BST) and conversion to India Standard Time.
+- [Current Time in IST](https://chronotools.online/convert/current-time-in-ist/): Live India Standard Time (UTC+5:30) synchronized with New Delhi.
+- [Canada Time is Now](https://chronotools.online/convert/canada-time-now/): Canada 6-zone live clock (Toronto, Vancouver) to India IST.
+- [EST to Now](https://chronotools.online/convert/est-to-now/): Eastern Time Zone now live clock, market hours, and worldwide comparison.
+- [Time to Dubai](https://chronotools.online/convert/time-to-dubai/): Dubai Gulf Standard Time (GST UTC+4) to India Standard Time (IST UTC+5:30).
+- [Japan vs India Time](https://chronotools.online/convert/japan-vs-india/): Tokyo (JST UTC+9) vs New Delhi (IST UTC+5:30) 3.5-hour difference guide.
+- [Converting Time Zone Guide](https://chronotools.online/convert/converting-time-zone/): Precision 24-hour visual conversion guide across GMT, EST, PST, and IST.
+- [Time and Zone Global Directory](https://chronotools.online/convert/time-and-zone/): Complete index of all 38 active world time zones and UTC offsets.
+- [EST to IST Converter](https://chronotools.online/convert/est-to-ist/): US Eastern to India Standard Time 10.5-hour difference matrix.
+- [PST to EST Converter](https://chronotools.online/convert/pst-to-est/): Pacific to Eastern coast-to-coast 3-hour difference guide.
+- [London to New York Time](https://chronotools.online/convert/london-to-new-york/): Transatlantic financial trading session overlap and 5-hour time difference.
+
+## Machine-Readable Specifications
+
+- [MCP Server Card](https://chronotools.online/.well-known/mcp/server-card.json): Model Context Protocol server descriptor for autonomous AI agents.
+- [WebMCP In-Browser Tools](https://chronotools.online/.well-known/webmcp.json): In-browser agent tool specifications.
+- [Security Policy](https://chronotools.online/.well-known/security.txt): RFC 9116 security vulnerability disclosure standard.
+- [Full Markdown Knowledge Base](https://chronotools.online/index.md): Machine-readable documentation and algorithm definitions.

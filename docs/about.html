@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-P59M2G88"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About ChronoTools – Global Chronology Suite & Engineering Principles</title>
+  <meta name="description" content="Discover ChronoTools: our engineering architecture, IANA tzdb time calculation methodology, GeoNames gazetteer integration, and privacy-first design principles.">
+  <link rel="canonical" href="https://chronotools.online/docs/about.html">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About ChronoTools",
+    "url": "https://chronotools.online/docs/about.html",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "ChronoTools Online",
+      "url": "https://chronotools.online/",
+      "logo": "https://chronotools.online/brand-icon.png",
+      "description": "Precision World Time Zone Converter, 24-Hour Visual Meeting Planner, and Global Chronology Platform for remote teams and traders.",
+      "email": "support@chronotools.online",
+      "foundingDate": "2024",
+      "sameAs": [
+        "https://github.com/chronotools",
+        "https://x.com/chronotools",
+        "https://www.wikidata.org/wiki/Q12143"
+      ]
+    }
+  }
+  </script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background-color: #020617; color: #f8fafc; line-height: 1.6; margin: 0; padding: 2rem 1rem; }
+    .container { max-width: 800px; margin: 0 auto; background: #0f172a; padding: 2.5rem; border-radius: 1rem; border: 1px solid #1e293b; }
+    h1 { font-size: 2rem; color: #38bdf8; margin-top: 0; }
+    h2 { font-size: 1.25rem; color: #e2e8f0; margin-top: 2rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; }
+    p, li { color: #94a3b8; font-size: 0.95rem; }
+    a { color: #38bdf8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { display: inline-block; margin-bottom: 1.5rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="container" itemscope itemtype="https://schema.org/AboutPage">
+    <a href="/" class="back">&larr; Return to ChronoTools Converter</a>
+    <h1>About ChronoTools</h1>
+    <p>ChronoTools (accessible at <code>https://chronotools.online</code>) is an independent, engineer-crafted chronology platform designed to eliminate the friction of scheduling meetings, analyzing financial markets, and coordinating operations across global time zones.</p>
+
+    <h2>The Problem We Solve</h2>
+    <p>In modern distributed organizations, teams collaborate across London, New York, San Francisco, Tokyo, and Bangalore daily. Traditional digital clocks and dropdown converters force participants to compute complex mental arithmetic, frequently leading to missed meetings during Daylight Saving Time (DST) changeovers or awkward calls scheduled in the middle of a colleague's night.</p>
+    <p>ChronoTools solves this with a continuous, interactive 24-hour visual ribbon. By projecting every city's timeline onto a synchronized horizontal canvas, users can pinpoint mutual "Golden Hours" when business and waking hours intersect across every participant's local timezone.</p>
+
+    <h2>Data Sources &amp; Calculation Methodology</h2>
+    <p>Precision and accuracy are the core pillars of ChronoTools:</p>
+    <ul>
+      <li><strong>IANA Time Zone Database (tzdb):</strong> All calculations are powered natively via ECMAScript Internationalization APIs (<code>Intl.DateTimeFormat</code>) linked directly to the authoritative IANA tzdb. Astronomical leap seconds and regional daylight saving transitions are resolved with mathematical precision.</li>
+      <li><strong>GeoNames Gazetteer:</strong> Our geographic dataset indexes more than 34,000 municipalities worldwide using verified geographical coordinates from the GeoNames geographical database (CC BY 4.0).</li>
+      <li><strong>Modern Nomenclature:</strong> We strictly employ officially recognized contemporary city spellings, including Kolkata, Kyiv, Mumbai, Bengaluru, Chennai, Yangon, and Ho Chi Minh City.</li>
+    </ul>
+
+    <h2>Zero-Latency, Client-Side Architecture</h2>
+    <p>ChronoTools is built on a pure Static Site Generation (SSG) paradigm. All timezone transformations, timeline scrubbing calculations, and calendar file exports execute entirely on your device's browser engine. We do not transmit your scheduled meeting details, selected cities, or personal itineraries to any server.</p>
+
+    <h2>Autonomous Agent &amp; Developer Access</h2>
+    <p>ChronoTools supports next-generation AI and developer standards, including the <a href="/llms.txt">llms.txt context format</a>, Model Context Protocol (<a href="/.well-known/mcp.json">MCP server card</a>), and in-browser WebMCP tool execution.</p>
+
+    <h2>Publisher &amp; Contact Information</h2>
+    <p>ChronoTools Online is maintained by an independent engineering collective. For technical inquiries, bug reports, and partnership questions, contact our support team at <a href="mailto:support@chronotools.online">support@chronotools.online</a> or explore our <a href="/docs/contact.html">Contact Page</a>.</p>
+  </div>
+</body>
+</html>

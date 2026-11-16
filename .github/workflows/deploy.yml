@@ -1,0 +1,71 @@
+name: Deploy Staging to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js (if package.json exists)
+        if: hashFiles('package.json') != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies (if package.json exists)
+        if: hashFiles('package.json') != ''
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Build Project (if package.json build script exists)
+        if: hashFiles('package.json') != ''
+        run: npm run build --if-present
+
+      - name: Determine Deploy Directory
+        id: select-path
+        run: |
+          if [ -d "dist" ]; then
+            echo "deploy_path=dist" >> $GITHUB_OUTPUT
+          elif [ -d "build" ]; then
+            echo "deploy_path=build" >> $GITHUB_OUTPUT
+          elif [ -d "out" ]; then
+            echo "deploy_path=out" >> $GITHUB_OUTPUT
+          else
+            echo "deploy_path=." >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ steps.select-path.outputs.deploy_path }}
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

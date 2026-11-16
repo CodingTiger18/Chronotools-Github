@@ -1,0 +1,41 @@
+{
+  "$schema": "https://webmcp.org/schema/v1.json",
+  "name": "chronotools-webmcp",
+  "version": "1.0.0",
+  "description": "In-browser WebMCP tool manifest exposing ChronoTools client-side calculation engines directly to AI agents.",
+  "runtime": "browser",
+  "globalObject": "__mcp_tools__",
+  "tools": [
+    {
+      "name": "convertTime",
+      "description": "Convert date time between any IANA timezones in-browser",
+      "parameters": {
+        "datetime": "string",
+        "fromTz": "string",
+        "toTz": "string"
+      }
+    },
+    {
+      "name": "getMarketHours",
+      "description": "Evaluate live trading bell status for world exchanges",
+      "parameters": {
+        "exchange": "string"
+      }
+    },
+    {
+      "name": "getWeekNumber",
+      "description": "Calculate ISO 8601 week number with custom start-day",
+      "parameters": {
+        "date": "string",
+        "startDay": "number"
+      }
+    },
+    {
+      "name": "convertUnix",
+      "description": "Convert Unix epoch timestamp to UTC/local strings",
+      "parameters": {
+        "timestamp": "number"
+      }
+    }
+  ]
+}
