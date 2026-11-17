@@ -259,6 +259,71 @@
 
     <!-- Static Pre-Rendered Semantic Shell (Replaced by React on hydration) -->
     <div id="root">
+      <div class="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
+        <!-- Matching Navbar Shell -->
+        <header class="w-full border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-40">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <img src="/brand-icon.png" alt="ChronoTools" width="36" height="36" class="rounded-xl shadow-md shadow-cyan-500/20" />
+              <span class="text-xl font-black tracking-tight text-white">Chrono<span class="text-cyan-400">Tools</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-1.5 text-xs font-semibold text-slate-400">
+              <span class="px-3 py-1.5 rounded-lg bg-cyan-500/10 text-cyan-400 font-bold border border-cyan-500/20">Converter</span>
+              <a href="/weeks/" class="px-3 py-1.5 rounded-lg hover:text-white transition-colors text-slate-400 no-underline">Weeks</a>
+              <a href="/difference/" class="px-3 py-1.5 rounded-lg hover:text-white transition-colors text-slate-400 no-underline">Difference</a>
+              <a href="/market-hours/" class="px-3 py-1.5 rounded-lg hover:text-white transition-colors text-slate-400 no-underline">Markets</a>
+              <a href="/unix/" class="px-3 py-1.5 rounded-lg hover:text-white transition-colors text-slate-400 no-underline">Unix</a>
+              <a href="/teams/" class="px-3 py-1.5 rounded-lg hover:text-white transition-colors text-slate-400 no-underline">Teams</a>
+              <a href="/jetlag/" class="px-3 py-1.5 rounded-lg hover:text-white transition-colors text-slate-400 no-underline">Jet Lag</a>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-slate-800/80 border border-slate-700/60 animate-pulse"></div>
+              <div class="w-8 h-8 rounded-lg bg-slate-800/80 border border-slate-700/60 animate-pulse"></div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Matching Main Area Skeleton -->
+        <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 space-y-6">
+          <div class="space-y-1 pt-1 pb-2">
+            <h1 class="text-xl md:text-2xl font-black tracking-tight text-white flex items-center gap-2">
+              <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">ChronoTools</span>
+              <span class="text-slate-600 font-light hidden sm:inline">—</span>
+              <span class="text-sm sm:text-base md:text-lg font-semibold text-slate-300">World Time Zone Converter &amp; Meeting Planner</span>
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-400">Precision 24-hour synchronized chronology powered by native browser IANA time zone rules.</p>
+          </div>
+
+          <!-- Interactive Grid Skeleton Placeholder -->
+          <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 xl:gap-10 items-start w-full">
+            <div class="col-span-1 xl:col-span-9 space-y-6 min-w-0 w-full">
+              <!-- Timeline Grid Skeleton Card -->
+              <div class="rounded-2xl border border-slate-800 bg-slate-900/50 p-5 shadow-xl space-y-4 animate-pulse">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                  <div class="h-6 w-48 bg-slate-800 rounded-md"></div>
+                  <div class="h-8 w-28 bg-slate-800 rounded-lg"></div>
+                </div>
+                <!-- Scrubber Skeleton -->
+                <div class="h-14 bg-slate-800/60 rounded-xl border border-slate-800"></div>
+                <!-- City Cards Skeletons -->
+                <div class="space-y-2.5 pt-2">
+                  <div class="h-16 bg-slate-800/40 rounded-xl border border-slate-800/60"></div>
+                  <div class="h-16 bg-slate-800/40 rounded-xl border border-slate-800/60"></div>
+                  <div class="h-16 bg-slate-800/40 rounded-xl border border-slate-800/60"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Aside Sidebar Skeleton -->
+            <div class="hidden xl:block xl:col-span-3 sticky top-24 min-w-0 w-full">
+              <div class="h-64 rounded-2xl border border-slate-800 bg-slate-900/30 p-4 animate-pulse"></div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Non-JavaScript Crawlable Fallback & Indexing Matrix -->
+    <noscript>
       <header style="padding: 1.5rem 1rem; border-bottom: 1px solid #1e293b; max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;">
         <div style="display: flex; align-items: center; gap: 0.75rem;">
           <img src="/brand-icon.png" alt="ChronoTools Logo" width="36" height="36" style="border-radius: 0.5rem;" />
@@ -480,6 +545,6 @@
           <a href="/llms.txt" style="color: #38bdf8; text-decoration: none; font-family: monospace;">llms.txt</a>
         </div>
       </footer>
-    </div>
+    </noscript>
   </body>
 </html>

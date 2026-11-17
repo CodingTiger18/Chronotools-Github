@@ -10,6 +10,7 @@
  * 6. Sitemap & SEO Index Integrity (550+ URLs validated)
  * 7. Asset Optimization & Performance Budgets
  * 8. Core Bundle JavaScript Syntax & Variable Shadowing Verification
+ * 9. Zero-Flash & Initial App Shell Integrity (Anti-FOUC / Seamless Hydration)
  * 
  * Run with: node tests/run_tests.js
  */
@@ -50,7 +51,6 @@ function it(testName, fn) {
 // Suite 1: 12-Hour vs 24-Hour Time Formatting
 // ==========================================
 describe('12-Hour vs 24-Hour Time Formatting & Snapshot Logic', () => {
-  // Mirroring ChronoTools core time formatting functions
   function formatMinutes(mins, is24h) {
     const totalMinutes = ((mins % 1440) + 1440) % 1440;
     const hours = Math.floor(totalMinutes / 60);
@@ -129,7 +129,6 @@ describe('12-Hour vs 24-Hour Time Formatting & Snapshot Logic', () => {
 describe('ISO 8601 Week Calculation Engine', () => {
   function getISOWeek(date) {
     const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-    // Set to nearest Thursday: current date + 4 - current day number (with Sunday = 7)
     const dayNr = (d.getUTCDay() + 6) % 7;
     d.setUTCDate(d.getUTCDate() - dayNr + 3);
     const firstThursday = d.getTime();
@@ -161,7 +160,6 @@ describe('ISO 8601 Week Calculation Engine', () => {
   });
 
   it('correctly assigns late December days belonging to next year week 1', () => {
-    // 2024-12-30 is Monday -> Week 1 of 2025
     assert.strictEqual(getISOWeek(new Date('2024-12-30T00:00:00Z')), 1);
   });
 });
@@ -173,7 +171,6 @@ describe('Unix Timestamp Converter Engine', () => {
   function parseTimestamp(input) {
     const num = Number(input);
     if (isNaN(num)) throw new Error('Invalid numeric timestamp');
-    // If greater than 1e11, treat as milliseconds, else seconds
     const ms = Math.abs(num) > 1e11 ? num : num * 1000;
     const d = new Date(ms);
     return {
@@ -202,7 +199,7 @@ describe('Unix Timestamp Converter Engine', () => {
   });
 
   it('handles negative epoch timestamps (pre-1970)', () => {
-    const res = parseTimestamp(-86400); // 1 day before epoch
+    const res = parseTimestamp(-86400);
     assert.strictEqual(res.iso, '1969-12-31T00:00:00.000Z');
   });
 });
@@ -257,7 +254,7 @@ describe('Static Route & Semantic HTML Integrity', () => {
     { dir: 'market-hours', titleSnippet: 'International Stock Market Trading Hours' },
     { dir: 'difference', titleSnippet: 'Two-City Time Difference' },
     { dir: 'unix', titleSnippet: 'Unix Epoch Timestamp Converter' },
-    { dir: 'teams', titleSnippet: 'Distributed Team Work Hour Alignment' },
+    { dir: 'teams', titleSnippet: 'Distributed Team Sync' },
     { dir: 'jetlag', titleSnippet: 'Jet Lag' }
   ];
 
@@ -400,6 +397,51 @@ describe('Core Bundle JavaScript Verification', () => {
     assert.ok(code.includes('/unix'), 'Sn() must support /unix path routing');
     assert.ok(code.includes('/teams'), 'Sn() must support /teams path routing');
     assert.ok(code.includes('/jetlag'), 'Sn() must support /jetlag path routing');
+  });
+});
+
+// ==========================================
+// Suite 9: Zero-Flash & Initial App Shell Integrity (Anti-FOUC)
+// ==========================================
+describe('Zero-Flash & Initial App Shell Integrity (Anti-FOUC)', () => {
+  const indexHtml = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  const jsPath = path.join(ROOT_DIR, 'assets', 'index-wimlX4lu.js');
+  const jsCode = fs.readFileSync(jsPath, 'utf8');
+
+  it('verifies index.html has a matching dark initial skeleton inside #root', () => {
+    const rootStart = indexHtml.indexOf('<div id="root">');
+    const noscriptStart = indexHtml.indexOf('<noscript>');
+    assert.ok(rootStart !== -1, '<div id="root"> must exist in index.html');
+    assert.ok(noscriptStart !== -1, '<noscript> must follow #root in index.html');
+    const rootInner = indexHtml.substring(rootStart, noscriptStart);
+    assert.ok(rootInner.includes('bg-slate-950'), 'Skeleton must use bg-slate-950 dark background');
+    assert.ok(rootInner.includes('Chrono<span class="text-cyan-400">Tools</span>'), 'Skeleton must match brand logo');
+    assert.ok(rootInner.includes('animate-pulse'), 'Skeleton should include subtle pulse loaders');
+  });
+
+  it('verifies static SEO text and directory links are safely isolated in <noscript>', () => {
+    assert.ok(indexHtml.includes('<noscript>'), 'index.html must include <noscript> fallback');
+    const noscriptMatch = indexHtml.match(/<noscript>([\s\S]*?)<\/noscript>/);
+    assert.ok(noscriptMatch, '<noscript> tag must be closed');
+    const noscriptContent = noscriptMatch[1];
+    // Non-JS crawlers receive full content
+    assert.ok(noscriptContent.includes('ChronoTools') && noscriptContent.includes('World Time Zone Converter'), 'noscript must contain h1 text for non-JS crawlers');
+    assert.ok(noscriptContent.includes('/convert/'), 'noscript must contain crawlable conversion links');
+  });
+
+  it('verifies development deployment banners are disabled in JS bundle', () => {
+    assert.ok(!jsCode.includes('!g&&(0,D.jsxDEV)(`aside`,{"aria-label":`Development deployment banner`'), 'Dev aside banner must be disabled');
+    assert.ok(!jsCode.includes('!g&&(0,D.jsxDEV)(`div`,{className:`bg-gradient-to-r from-cyan-950/90'), 'Dev main package banner must be disabled');
+  });
+
+  const toolPages = ['weeks', 'market-hours', 'difference', 'unix', 'teams', 'jetlag'];
+  toolPages.forEach(tool => {
+    it(`verifies /${tool}/index.html contains seamless dark skeleton and <noscript> SEO fallback`, () => {
+      const pageHtml = fs.readFileSync(path.join(ROOT_DIR, tool, 'index.html'), 'utf8');
+      assert.ok(pageHtml.includes('<div id="root">'), `${tool} missing #root`);
+      assert.ok(pageHtml.includes('bg-slate-950'), `${tool} skeleton must use bg-slate-950`);
+      assert.ok(pageHtml.includes('<noscript>'), `${tool} missing noscript SEO fallback`);
+    });
   });
 });
 
