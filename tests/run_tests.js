@@ -432,6 +432,11 @@ describe('Zero-Flash & Initial App Shell Integrity (Anti-FOUC)', () => {
   it('verifies development deployment banners are disabled in JS bundle', () => {
     assert.ok(!jsCode.includes('!g&&(0,D.jsxDEV)(`aside`,{"aria-label":`Development deployment banner`'), 'Dev aside banner must be disabled');
     assert.ok(!jsCode.includes('!g&&(0,D.jsxDEV)(`div`,{className:`bg-gradient-to-r from-cyan-950/90'), 'Dev main package banner must be disabled');
+    assert.ok(!jsCode.includes('!l&&c&&(0,D.jsxDEV)(`button`'), 'Dev navbar Download ZIP button must be disabled');
+  });
+
+  it('verifies brand icon uses subpath-aware dynamic URI in JS bundle', () => {
+    assert.ok(jsCode.includes('Chronotools-Github/brand-icon.png'), 'Brand icon must support /Chronotools-Github/ subpath resolution');
   });
 
   const toolPages = ['weeks', 'market-hours', 'difference', 'unix', 'teams', 'jetlag'];
