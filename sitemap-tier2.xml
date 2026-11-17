@@ -145,6 +145,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://chronotools.online/convert/frankfurt-to-amsterdam/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://chronotools.online/convert/frankfurt-to-chicago/</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
@@ -182,6 +188,12 @@
   </url>
   <url>
     <loc>https://chronotools.online/convert/frankfurt-to-toronto/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chronotools.online/convert/frankfurt-to-zurich/</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -410,12 +422,6 @@
   </url>
   <url>
     <loc>https://chronotools.online/convert/los-angeles-to-riyadh/</loc>
-    <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://chronotools.online/convert/los-angeles-to-san-francisco/</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -668,12 +674,6 @@
   </url>
   <url>
     <loc>https://chronotools.online/convert/san-francisco-to-london/</loc>
-    <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://chronotools.online/convert/san-francisco-to-los-angeles/</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

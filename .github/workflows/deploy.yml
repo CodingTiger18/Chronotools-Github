@@ -45,6 +45,9 @@ jobs:
         if: hashFiles('package.json') != ''
         run: npm run build --if-present
 
+      - name: Run Automated Test Suite
+        run: npm test
+
       - name: Determine Deploy Directory
         id: select-path
         run: |

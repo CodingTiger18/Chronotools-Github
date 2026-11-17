@@ -1,0 +1,22 @@
+{
+  "name": "chronotools",
+  "version": "1.0.0",
+  "description": "High-performance, zero-latency world time converter, meeting planner, and circadian scheduling suite.",
+  "main": "index.html",
+  "scripts": {
+    "start": "node tests/serve.js",
+    "test": "node tests/run_tests.js"
+  },
+  "keywords": [
+    "timezone",
+    "time-converter",
+    "meeting-planner",
+    "circadian",
+    "iso-week",
+    "unix-timestamp",
+    "stock-market-hours"
+  ],
+  "author": "ChronoTools Team",
+  "license": "MIT",
+  "homepage": "https://chronotools.online"
+}
