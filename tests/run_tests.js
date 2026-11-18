@@ -474,6 +474,21 @@ describe('Zero-Flash & Initial App Shell Integrity (Anti-FOUC)', () => {
       assert.ok(pageHtml.includes('<noscript>'), `${tool} missing noscript SEO fallback`);
     });
   });
+
+  it('verifies 12-column grid geometry and sidebar placeholder are pre-rendered across all pages', () => {
+    const allPages = ['index.html', ...toolPages.map(t => path.join(t, 'index.html'))];
+    for (const relPath of allPages) {
+      const pageHtml = fs.readFileSync(path.join(ROOT_DIR, relPath), 'utf8');
+      const rootStart = pageHtml.indexOf('<div id="root">');
+      const noscriptStart = pageHtml.indexOf('<noscript>');
+      const rootInner = pageHtml.substring(rootStart, noscriptStart);
+      assert.ok(rootInner.includes('grid grid-cols-1 xl:grid-cols-12'), `${relPath} must include 12-column grid in initial shell`);
+      assert.ok(rootInner.includes('xl:col-span-9'), `${relPath} must include col-span-9 left column in initial shell`);
+      assert.ok(rootInner.includes('xl:col-span-3'), `${relPath} must include col-span-3 sidebar in initial shell`);
+      assert.ok(rootInner.includes('min-height: 600px; max-width: 300px;'), `${relPath} must reserve exact 300x600 sidebar geometry`);
+      assert.ok(rootInner.includes('location.pathname.startsWith(\'/Chronotools-Github\')'), `${relPath} brand icon must include subpath fallback for GitHub Pages`);
+    }
+  });
 });
 
 // ==========================================
