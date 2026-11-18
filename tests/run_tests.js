@@ -447,6 +447,10 @@ describe('Zero-Flash & Initial App Shell Integrity (Anti-FOUC)', () => {
     assert.ok(cssPos < jsPos, 'CSS stylesheet must precede JS bundle in <head>');
   });
 
+  it('verifies critical application bundle is preloaded with modulepreload for instant loading', () => {
+    assert.ok(indexHtml.includes('<link rel="modulepreload" href="/assets/index-wimlX4lu.js">'), 'index.html must include modulepreload for instant bundle fetch');
+  });
+
   it('verifies synchronous theme anti-flicker script is present in <head>', () => {
     assert.ok(indexHtml.includes('chronotools_pref_theme'), 'index.html must include inline theme check in <head>');
   });
