@@ -10,6 +10,12 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google Tag / GTM DataLayer Initialization (Zero-Latency Stub) -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    </script>
     <!-- Critical Render-Blocking Tailwind CSS -->
     <link rel="stylesheet" crossorigin href="/assets/index-CQdmNX5M.css">
     <!-- Critical Application Module Preload & Immediate Bootstrap -->
@@ -17,6 +23,22 @@
     <script type="module" crossorigin src="/assets/index-wimlX4lu.js"></script>
     <!-- Brand Icon Preload for Zero-Lag First Contentful Paint -->
     <link rel="preload" as="image" href="/brand-icon.png">
+    <!-- Synchronous Dark/Light Theme Script (Anti-Flicker) -->
+    <script>
+      (function() {
+        try {
+          var t = localStorage.getItem('chronotools_pref_theme');
+          if (t === 'false') {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+          }
+        } catch(e) {}
+      })();
+    </script>
+    
+    <!-- Brand Icon Preload for Zero-Lag First Contentful Paint -->
+    
     <!-- Synchronous Dark/Light Theme Script (Anti-Flicker) -->
     <script>
       (function() {
@@ -68,7 +90,7 @@
     <meta name="permissions-policy" content="geolocation=(self), microphone=(), camera=(), payment=()" />
 
     <!-- Google AdSense Official Script (Non-blocking async + defer) -->
-    <script async defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2006176122747865" crossorigin="anonymous"></script>
+    
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -281,6 +303,7 @@
     </div>
 
     <!-- Static Pre-Rendered Semantic Shell (Replaced by React on hydration) -->
+    <!-- Static Pre-Rendered Semantic Shell (Seamless dark luxury shell) -->
     <!-- Static Pre-Rendered Semantic Shell (Seamless dark luxury shell) -->
     <!-- Static Pre-Rendered Semantic Shell (Seamless dark luxury shell) -->
     <!-- Static Pre-Rendered Semantic Shell (Seamless dark luxury shell) -->
@@ -565,5 +588,38 @@
         </div>
       </footer>
     </noscript>
+  
+    <!-- Non-Blocking Post-FCP Third-Party Loader (Max Speed & Full Ad Revenue) -->
+    <script>
+      (function() {
+        var loaded = false;
+        function loadThirdParty() {
+          if (loaded) return;
+          loaded = true;
+
+          // 1. Google Tag Manager
+          var gtm = document.createElement('script');
+          gtm.async = true;
+          gtm.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-P59M2G88';
+          document.head.appendChild(gtm);
+
+          // 2. Google AdSense (Official Publisher Client)
+          var ads = document.createElement('script');
+          ads.async = true;
+          ads.crossOrigin = 'anonymous';
+          ads.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2006176122747865';
+          document.head.appendChild(ads);
+        }
+
+        if (document.readyState === 'complete') {
+          setTimeout(loadThirdParty, 400);
+        } else {
+          window.addEventListener('load', function() {
+            setTimeout(loadThirdParty, 400);
+          });
+          setTimeout(loadThirdParty, 1500);
+        }
+      })();
+    </script>
   </body>
 </html>

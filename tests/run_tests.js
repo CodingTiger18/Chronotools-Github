@@ -459,6 +459,12 @@ describe('Zero-Flash & Initial App Shell Integrity (Anti-FOUC)', () => {
     assert.ok(jsCode.includes('setTimeout(()=>{try{localStorage.getItem(`chronotools_cmp_consent`)'), 'Consent banner must be smoothly delayed on mount');
   });
 
+  it('verifies Google AdSense and GTM are initialized with post-FCP non-blocking loader', () => {
+    assert.ok(indexHtml.includes('loadThirdParty'), 'index.html must use non-blocking third-party loader');
+    assert.ok(indexHtml.includes('ca-pub-2006176122747865'), 'index.html must maintain official AdSense client');
+    assert.ok(indexHtml.includes('GTM-P59M2G88'), 'index.html must maintain official GTM container');
+  });
+
   const toolPages = ['weeks', 'market-hours', 'difference', 'unix', 'teams', 'jetlag'];
   toolPages.forEach(tool => {
     it(`verifies /${tool}/index.html contains seamless dark skeleton and <noscript> SEO fallback`, () => {
