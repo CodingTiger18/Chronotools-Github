@@ -77,6 +77,7 @@ jobs:
               html = html.replace(/src=\"\/assets\//g, 'src=\"/Chronotools-Github/assets/');
               html = html.replace(/href=\"\/assets\//g, 'href=\"/Chronotools-Github/assets/');
               html = html.replace(/src=\"\/brand-icon\.png\"/g, 'src=\"/Chronotools-Github/brand-icon.png\"');
+              html = html.replace(/href=\"\/brand-icon\.png\"/g, 'href=\"/Chronotools-Github/brand-icon.png\"');
               html = html.replace(/href=\"\/favicon/g, 'href=\"/Chronotools-Github/favicon');
               html = html.replace(/href=\"\/apple-touch-icon\.png\"/g, 'href=\"/Chronotools-Github/apple-touch-icon.png\"');
               html = html.replace(/href=\"\/site\.webmanifest\"/g, 'href=\"/Chronotools-Github/site.webmanifest\"');
