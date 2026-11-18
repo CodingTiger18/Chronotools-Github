@@ -62,19 +62,22 @@ jobs:
           fi
 
       - name: Setup Pages
+        id: pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
+        continue-on-error: true
 
       - name: Adapt Asset Paths for GitHub Pages Subpath
+        if: steps.pages.outcome == 'success'
         run: |
           node scripts/adapt-gh-pages.js "${{ steps.select-path.outputs.deploy_path }}"
 
       - name: Upload Pages Artifact
+        if: steps.pages.outcome == 'success'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ${{ steps.select-path.outputs.deploy_path }}
 
       - name: Deploy to GitHub Pages
+        if: steps.pages.outcome == 'success'
         id: deployment
         uses: actions/deploy-pages@v4
