@@ -542,6 +542,23 @@ describe('Zero-Flash & Initial App Shell Integrity (Anti-FOUC)', () => {
       assert.ok(html.includes('ADVERTISEMENT'), `${rt} must include compliant ADVERTISEMENT label`);
     });
   });
+
+  it('verifies llms.txt and GitHub Pages subpath adapter integrity', () => {
+    const llmsPath = path.join(ROOT_DIR, 'llms.txt');
+    assert.ok(fs.existsSync(llmsPath), 'llms.txt must exist at repository root');
+    const llmsContent = fs.readFileSync(llmsPath, 'utf8');
+    assert.ok(llmsContent.includes('# ChronoTools'), 'llms.txt must have title');
+    assert.ok(llmsContent.includes('## Machine-Readable Specifications'), 'llms.txt must list machine specs');
+
+    const adapterPath = path.join(ROOT_DIR, 'scripts', 'adapt-gh-pages.js');
+    assert.ok(fs.existsSync(adapterPath), 'scripts/adapt-gh-pages.js must exist');
+
+    const jsBundle = fs.readFileSync(path.join(ROOT_DIR, 'assets', 'index-wimlX4lu.js'), 'utf8');
+    assert.ok(jsBundle.includes('/Chronotools-Github/llms.txt'), 'JS bundle must have subpath-aware llms.txt resolver');
+
+    const deployWorkflow = fs.readFileSync(path.join(ROOT_DIR, '.github', 'workflows', 'deploy.yml'), 'utf8');
+    assert.ok(deployWorkflow.includes('node scripts/adapt-gh-pages.js'), 'deploy.yml must execute adapt-gh-pages.js');
+  });
 });
 
 // ==========================================
