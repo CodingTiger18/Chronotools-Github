@@ -5,6 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 Page Not Found – ChronoTools</title>
   <meta name="robots" content="noindex, follow">
+  <script>
+    (function() {
+      var isSubpath = window.location.pathname.startsWith('/Chronotools-Github');
+      var repoBase = isSubpath ? '/Chronotools-Github' : '';
+      var routePath = window.location.pathname.slice(repoBase.length);
+      if (routePath && routePath !== '/' && routePath !== '/index.html') {
+        window.location.replace(
+          window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') +
+          repoBase + '/?' + encodeURIComponent(routePath + window.location.search) + window.location.hash
+        );
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
   <style>
     body {

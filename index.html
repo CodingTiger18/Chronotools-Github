@@ -36,20 +36,15 @@
         } catch(e) {}
       })();
     </script>
-    
-    <!-- Brand Icon Preload for Zero-Lag First Contentful Paint -->
-    
-    <!-- Synchronous Dark/Light Theme Script (Anti-Flicker) -->
+
+    <!-- GitHub Pages Single Page App Deep Link Handler -->
     <script>
       (function() {
-        try {
-          var t = localStorage.getItem('chronotools_pref_theme');
-          if (t === 'false') {
-            document.documentElement.classList.remove('dark');
-          } else {
-            document.documentElement.classList.add('dark');
-          }
-        } catch(e) {}
+        var search = window.location.search;
+        if (search && search.startsWith('?/')) {
+          var redirect = decodeURIComponent(search.slice(1));
+          window.history.replaceState(null, null, (window.location.pathname.startsWith('/Chronotools-Github') ? '/Chronotools-Github' : '') + redirect + window.location.hash);
+        }
       })();
     </script>
     
@@ -116,15 +111,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-    />
-    <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-      media="print"
-      onload="this.media='all'"
     />
 
     <!-- WebMCP Tool Registration on Page Load (Non-blocking) -->

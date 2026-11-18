@@ -17,7 +17,7 @@ function walk(dir, fileList = []) {
       walk(fullPath, fileList);
     } else if (entry.isFile()) {
       const ext = path.extname(entry.name).toLowerCase();
-      if (['.html', '.js'].includes(ext)) {
+      if (['.html', '.js', '.webmanifest', '.json'].includes(ext)) {
         fileList.push(fullPath);
       }
     }
@@ -41,6 +41,7 @@ for (const file of files) {
   content = content.replace(/href="\/favicon/g, `href="${REPO_SUBPATH}/favicon`);
   content = content.replace(/href="\/apple-touch-icon\.png"/g, `href="${REPO_SUBPATH}/apple-touch-icon.png"`);
   content = content.replace(/href="\/site\.webmanifest"/g, `href="${REPO_SUBPATH}/site.webmanifest"`);
+  content = content.replace(/"\/android-chrome-/g, `"${REPO_SUBPATH}/android-chrome-`);
 
   // AI & Discovery endpoints
   content = content.replace(/href="\/llms\.txt"/g, `href="${REPO_SUBPATH}/llms.txt"`);
