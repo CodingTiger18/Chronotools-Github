@@ -439,6 +439,22 @@ describe('Zero-Flash & Initial App Shell Integrity (Anti-FOUC)', () => {
     assert.ok(jsCode.includes('Chronotools-Github/brand-icon.png'), 'Brand icon must support /Chronotools-Github/ subpath resolution');
   });
 
+  it('verifies critical Tailwind CSS is placed at top of <head> before scripts (anti-FOUC)', () => {
+    const cssPos = indexHtml.indexOf('assets/index-CQdmNX5M.css');
+    const gtmPos = indexHtml.indexOf('googletagmanager.com');
+    const jsPos = indexHtml.indexOf('assets/index-wimlX4lu.js');
+    assert.ok(cssPos !== -1, 'index.html missing CSS stylesheet');
+    assert.ok(cssPos < jsPos, 'CSS stylesheet must precede JS bundle in <head>');
+  });
+
+  it('verifies synchronous theme anti-flicker script is present in <head>', () => {
+    assert.ok(indexHtml.includes('chronotools_pref_theme'), 'index.html must include inline theme check in <head>');
+  });
+
+  it('verifies consent banner pop-in is delayed to eliminate launch layout thrashing', () => {
+    assert.ok(jsCode.includes('setTimeout(()=>{try{localStorage.getItem(`chronotools_cmp_consent`)'), 'Consent banner must be smoothly delayed on mount');
+  });
+
   const toolPages = ['weeks', 'market-hours', 'difference', 'unix', 'teams', 'jetlag'];
   toolPages.forEach(tool => {
     it(`verifies /${tool}/index.html contains seamless dark skeleton and <noscript> SEO fallback`, () => {

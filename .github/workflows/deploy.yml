@@ -79,6 +79,14 @@ jobs:
               html = html.replace(/src=\"\/brand-icon\.png\"/g, 'src=\"/Chronotools-Github/brand-icon.png\"');
               html = html.replace(/href=\"\/favicon/g, 'href=\"/Chronotools-Github/favicon');
               html = html.replace(/href=\"\/apple-touch-icon\.png\"/g, 'href=\"/Chronotools-Github/apple-touch-icon.png\"');
+              html = html.replace(/href=\"\/site\.webmanifest\"/g, 'href=\"/Chronotools-Github/site.webmanifest\"');
+              html = html.replace(/href=\"\/market-hours\/\"/g, 'href=\"/Chronotools-Github/market-hours/\"');
+              html = html.replace(/href=\"\/weeks\/\"/g, 'href=\"/Chronotools-Github/weeks/\"');
+              html = html.replace(/href=\"\/difference\/\"/g, 'href=\"/Chronotools-Github/difference/\"');
+              html = html.replace(/href=\"\/teams\/\"/g, 'href=\"/Chronotools-Github/teams/\"');
+              html = html.replace(/href=\"\/unix\/\"/g, 'href=\"/Chronotools-Github/unix/\"');
+              html = html.replace(/href=\"\/jetlag\/\"/g, 'href=\"/Chronotools-Github/jetlag/\"');
+              html = html.replace(/href=\"\/\" class=\"flex items-center gap-2/g, 'href=\"/Chronotools-Github/\" class=\"flex items-center gap-2');
               fs.writeFileSync(file, html, 'utf8');
             }
             fixPaths('index.html');
