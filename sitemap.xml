@@ -20,4 +20,12 @@
     <loc>https://chronotools.online/sitemap-tier3-5.xml</loc>
     <lastmod>2026-11-16</lastmod>
   </sitemap>
+  <sitemap>
+    <loc>https://chronotools.online/sitemap-market-top.xml</loc>
+    <lastmod>2026-11-18</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://chronotools.online/sitemap-jetlag-top.xml</loc>
+    <lastmod>2026-11-18</lastmod>
+  </sitemap>
 </sitemapindex>

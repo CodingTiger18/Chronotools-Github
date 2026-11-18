@@ -301,6 +301,23 @@ describe('Sitemap & SEO Index Integrity', () => {
     assert.ok(content.includes('sitemap-core.xml'));
     assert.ok(content.includes('sitemap-tier1-batch1.xml'));
     assert.ok(content.includes('sitemap-tier2.xml'));
+    assert.ok(content.includes('sitemap-market-top.xml'), 'sitemap.xml must reference sitemap-market-top.xml');
+    assert.ok(content.includes('sitemap-jetlag-top.xml'), 'sitemap.xml must reference sitemap-jetlag-top.xml');
+  });
+
+  it('verifies total slug count is expanded to 590+ (no reduction)', () => {
+    const convertDir = path.join(ROOT_DIR, 'convert');
+    const convertSlugs = fs.readdirSync(convertDir).filter(f => fs.statSync(path.join(convertDir, f)).isDirectory());
+    const marketDir = path.join(ROOT_DIR, 'market-hours');
+    const marketSlugs = fs.readdirSync(marketDir).filter(f => fs.statSync(path.join(marketDir, f)).isDirectory());
+    const jetlagDir = path.join(ROOT_DIR, 'jetlag');
+    const jetlagSlugs = fs.readdirSync(jetlagDir).filter(f => fs.statSync(path.join(jetlagDir, f)).isDirectory());
+
+    assert.ok(convertSlugs.length >= 546, `Expected at least 546 convert slugs, found ${convertSlugs.length}`);
+    assert.ok(marketSlugs.length >= 20, `Expected 20 market-hours exchange slugs, found ${marketSlugs.length}`);
+    assert.ok(jetlagSlugs.length >= 20, `Expected 20 jetlag route slugs, found ${jetlagSlugs.length}`);
+    const total = 1 + 6 + convertSlugs.length + marketSlugs.length + jetlagSlugs.length;
+    assert.ok(total >= 590, `Total slugs must be >= 590, found ${total}`);
   });
 
   it('verifies all 550+ indexed URLs in sitemaps exist as physical files on disk', () => {
@@ -488,6 +505,42 @@ describe('Zero-Flash & Initial App Shell Integrity (Anti-FOUC)', () => {
       assert.ok(rootInner.includes('min-height: 600px; max-width: 300px;'), `${relPath} must reserve exact 300x600 sidebar geometry`);
       assert.ok(rootInner.includes('location.pathname.startsWith(\'/Chronotools-Github\')'), `${relPath} brand icon must include subpath fallback for GitHub Pages`);
     }
+  });
+
+  it('verifies Google AdSense policy compliance across HTML and JS (sanitized labels)', () => {
+    assert.ok(!indexHtml.includes('AdSense Verified'), 'index.html must not contain custom AdSense Verified label');
+    assert.ok(!indexHtml.includes('Google AdSense Partner'), 'index.html must not contain Google AdSense Partner label');
+    assert.ok(!jsCode.includes('AdSense Verified (CLS: 0.0)'), 'JS bundle must not contain custom AdSense Verified claim');
+    assert.ok(indexHtml.includes('<span>ADVERTISEMENT</span>'), 'index.html must use compliant uppercase ADVERTISEMENT label');
+  });
+
+  it('verifies Market Hours receives is24h prop and mobile UX improvements in JS bundle', () => {
+    assert.ok(jsCode.includes('(Qt,{is24h:n}'), 'Router must pass is24h:n to Market Hours (Qt)');
+    assert.ok(jsCode.includes('w-32 sm:w-52 md:w-72'), 'Mobile sticky city column must use compact w-32 on mobile viewports');
+  });
+
+  it('verifies 20 Market Hours exchange profiles exist on disk with valid Schema.org', () => {
+    const marketDir = path.join(ROOT_DIR, 'market-hours');
+    const exchanges = ['nyse', 'nasdaq', 'lse', 'tse', 'hkex', 'nse', 'bse', 'asx', 'sgx', 'sse', 'szse', 'tsx', 'six-swiss', 'b3', 'jse', 'dfm', 'tadawul', 'krx', 'euronext-paris', 'frankfurt-xetra'];
+    exchanges.forEach(ex => {
+      const pagePath = path.join(marketDir, ex, 'index.html');
+      assert.ok(fs.existsSync(pagePath), `Market profile ${ex}/index.html must exist`);
+      const html = fs.readFileSync(pagePath, 'utf8');
+      assert.ok(html.includes('"@type": "FinancialService"') || html.includes('"@type":"FinancialService"'), `${ex} must include FinancialService schema`);
+      assert.ok(html.includes('ADVERTISEMENT'), `${ex} must include compliant ADVERTISEMENT label`);
+    });
+  });
+
+  it('verifies 20 Jet Lag flight route profiles exist on disk with valid Schema.org', () => {
+    const jetlagDir = path.join(ROOT_DIR, 'jetlag');
+    const routes = ['london-to-tokyo', 'tokyo-to-london', 'new-york-to-london', 'london-to-new-york', 'san-francisco-to-london', 'london-to-san-francisco', 'new-york-to-paris', 'paris-to-new-york', 'los-angeles-to-tokyo', 'tokyo-to-los-angeles', 'dubai-to-sydney', 'sydney-to-dubai', 'singapore-to-london', 'london-to-singapore', 'chicago-to-frankfurt', 'frankfurt-to-chicago', 'toronto-to-hong-kong', 'sydney-to-los-angeles', 'mumbai-to-new-york', 'new-york-to-mumbai'];
+    routes.forEach(rt => {
+      const pagePath = path.join(jetlagDir, rt, 'index.html');
+      assert.ok(fs.existsSync(pagePath), `Jet lag route ${rt}/index.html must exist`);
+      const html = fs.readFileSync(pagePath, 'utf8');
+      assert.ok(html.includes('"@type": "MedicalWebPage"') || html.includes('"@type":"MedicalWebPage"'), `${rt} must include MedicalWebPage schema`);
+      assert.ok(html.includes('ADVERTISEMENT'), `${rt} must include compliant ADVERTISEMENT label`);
+    });
   });
 });
 
